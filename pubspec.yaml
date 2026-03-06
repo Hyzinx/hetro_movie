@@ -30,12 +30,15 @@ environment:
 dependencies:
   build_runner: ^2.12.2
   cupertino_icons: ^1.0.8
+  dio: ^5.9.2
   flutter:
     sdk: flutter
   flutter_bloc: ^9.1.1
   google_fonts: ^8.0.2
   json_annotation: ^4.11.0
   json_serializable: ^6.13.0
+  retrofit: ^4.9.2
+  retrofit_generator: ^10.2.3
   stroke_text: ^1.0.0
 
 dev_dependencies:

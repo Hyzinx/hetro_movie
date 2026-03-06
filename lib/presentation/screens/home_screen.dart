@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:hetro_anime/presentation/widgets/shared/list_category/list_category.dart';
 import 'package:hetro_anime/presentation/widgets/shared/search_widget.dart';
