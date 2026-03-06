@@ -1,4 +1,4 @@
-const baseUrl = "https://api.jikan.moe/v4/";
+const baseUrl = "https://api.themoviedb.org/3";
 
 const theMainRoute = "/";
 
