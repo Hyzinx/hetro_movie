@@ -22,10 +22,11 @@ class _MovieApi implements MovieApi {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<ResponseResult> getMoviesPlayNow() async {
+  Future<ResponseResult> getMoviesPlayNow(String authKey) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authorization': authKey};
+    _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<ResponseResult>(
       Options(method: 'GET', headers: _headers, extra: _extra)

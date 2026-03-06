@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part '../generators/models_generator/response_result.g.dart';
+part 'response_result.g.dart';
 
 @JsonSerializable()
 class ResponseResult {
