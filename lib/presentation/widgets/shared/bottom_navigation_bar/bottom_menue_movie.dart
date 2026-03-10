@@ -2,18 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:hetro_anime/consts/my_colors.dart';
 
 class BottomMenueMovie extends StatefulWidget {
-  const BottomMenueMovie({super.key});
+  const BottomMenueMovie({
+    super.key,
+    required this.selectedIndex,
+    required this.onSelectedButton,
+  });
+  final int selectedIndex;
+  final void Function(int) onSelectedButton;
 
   @override
   State<BottomMenueMovie> createState() => _BottomMenueMovieState();
 }
 
 class _BottomMenueMovieState extends State<BottomMenueMovie> {
-  int selectecIndex = 0;
-  void _onItemTapped(int index) {
-    setState(() {
-      selectecIndex = index;
-    });
+  int _selectedIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = widget.selectedIndex;
   }
 
   @override
@@ -26,13 +33,16 @@ class _BottomMenueMovieState extends State<BottomMenueMovie> {
         ),
       ),
       child: Theme(
-        data: Theme.of(context).copyWith(
-          splashFactory: NoSplash.splashFactory,
-        ),
+        data: Theme.of(context).copyWith(splashFactory: NoSplash.splashFactory),
         child: BottomNavigationBar(
           backgroundColor: MyColors.mainColore,
-          currentIndex: selectecIndex,
-          onTap: _onItemTapped,
+          currentIndex: _selectedIndex,
+          onTap: (index) {
+            setState(() {
+              widget.onSelectedButton(index);
+              _selectedIndex = index;
+            });
+          },
           iconSize: 30,
           unselectedItemColor: MyColors.secondaryBorderColore,
           elevation: 0,

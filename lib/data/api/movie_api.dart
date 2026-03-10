@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:hetro_anime/consts/strings.dart';
+import 'package:hetro_anime/data/models/movie.dart';
 import 'package:hetro_anime/data/models/response_result.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -25,4 +26,11 @@ abstract class MovieApi {
   Future<ResponseResult> getMoviesPopular(
     @Header("Authorization") String authKey,
   );
+
+  @GET('{id}')
+  Future<Movie> getMovieById(
+    @Path() int id,
+    @Header("Authorization") String authKey,
+  );
+
 }

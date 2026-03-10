@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hetro_anime/consts/my_colors.dart';
 
-class CategoryWidget extends StatelessWidget {
+class CategoryWidget<T> extends StatelessWidget {
   const CategoryWidget({
     super.key,
     required this.categoryName,

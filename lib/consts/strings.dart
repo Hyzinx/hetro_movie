@@ -1,7 +1,11 @@
 const baseUrl = "https://api.themoviedb.org/3";
 const baseUrlMovies = "https://api.themoviedb.org/3/movie/";
+const baseImageUrl = "https://image.tmdb.org/t/p/w500/";
 
-const theMainRoute = "/";
+const mainScreenRoute = "/";
+const searchScreenRoute = "search";
+const detailsMovieScreenRoute = "detailsMovie";
+const bookMarkScreenRoute = "bookMarkes";
 
 const apiKey =
     "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlNmQ4YjMwY2Y5ZWE4ZjQ3NTY5NTE2N2RjNDg4YzhkNiIsIm5iZiI6MTc3MjUzOTEzMi41MTMsInN1YiI6IjY5YTZjY2ZjMjBkNmRlNjhlMjRmYTEyMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.VEfUyaVludw3dO-nmfSKuew9C-LajOPJRSINjN8waFE";

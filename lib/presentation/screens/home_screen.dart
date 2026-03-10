@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hetro_anime/business/cubit/movie_cubit.dart';
+import 'package:hetro_anime/business/states/movie_state.dart';
+import 'package:hetro_anime/consts/my_colors.dart';
+import 'package:hetro_anime/consts/strings.dart';
 import 'package:hetro_anime/data/models/movie.dart';
-import 'package:hetro_anime/data/repositories/movie_repository.dart';
-import 'package:hetro_anime/injection.dart';
 import 'package:hetro_anime/presentation/model/category.dart';
+import 'package:hetro_anime/presentation/screens/main_screen.dart';
+import 'package:hetro_anime/presentation/screens/search_screen.dart';
+import 'package:hetro_anime/presentation/screens/watch_list_screen.dart';
 import 'package:hetro_anime/presentation/widgets/shared/bottom_navigation_bar/bottom_menue_movie.dart';
 import 'package:hetro_anime/presentation/widgets/shared/list_category/list_category.dart';
 import 'package:hetro_anime/presentation/widgets/shared/list_movies/movie_list_view.dart';
-import 'package:hetro_anime/presentation/widgets/shared/search_widget.dart';
-import 'package:hetro_anime/presentation/widgets/shared/top_anime_screen/top_anime.dart';
+import 'package:hetro_anime/presentation/widgets/shared/top_movie_screen/top_movie.dart';
 import 'package:hetro_anime/presentation/widgets/text_theme/text_theme.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -20,44 +23,28 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  void changeMovie(int index) {
-    switch (index) {
-      case 0:
-        context.read<MovieCubit>().getAllMoviesPlayNow();
-        break;
-      case 1:
-        context.read<MovieCubit>().getAllMoviesUpcoming();
-        break;
-      case 2:
-        context.read<MovieCubit>().getAllMoviesTopRated();
-        break;
-      case 3:
-        context.read<MovieCubit>().getAllMoviesPopular();
-        break;
-    }
+  int selectedButtonIndex = 0;
+  final List<Widget> screens = [
+    MainScreen(),
+    SearchScreen(),
+    WatchListScreen(),
+  ];
+
+  void onSelectedButton(int index) {
+    setState(() {
+      selectedButtonIndex = index;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomMenueMovie(),
-      appBar: AppBar(title: BodyLargTheme(text: "Hetro Movie")),
-      body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 15),
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // SearchWidget(),
-               BodyMideTheme(text: "Top Rated Movies"),
-              TopAnime(),
-              ListCategory(onChangeCatigory: changeMovie),
-              MovieListView(),
-            ],
-          ),
-        ),
+      bottomNavigationBar: BottomMenueMovie(
+        selectedIndex: selectedButtonIndex,
+        onSelectedButton: onSelectedButton,
       ),
+      appBar: AppBar(title: BodyLargTheme(text: "Hetro Movie")),
+      body: screens[selectedButtonIndex],
     );
   }
 }

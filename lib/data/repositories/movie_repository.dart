@@ -63,4 +63,16 @@ class MovieRepository {
       return ApiResult.failure(NetworkExceptions.getDioException(error));
     }
   }
+
+  Future<ApiResult<Movie>> getMovieById(int movieId) async {
+    try {
+      final Movie response = await movieApi.getMovieById(
+        movieId,
+        "Bearer $apiKey",
+      );
+      return ApiResult.success(response);
+    } catch (error) {
+      return ApiResult.failure(NetworkExceptions.getDioException(error));
+    }
+  }
 }

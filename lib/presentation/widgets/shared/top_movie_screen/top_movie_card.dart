@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hetro_anime/consts/my_colors.dart';
 
-class TopAnimeCard extends StatelessWidget {
-  const TopAnimeCard({super.key, required this.image, required this.order});
+class TopMovieCard extends StatelessWidget {
+  const TopMovieCard({super.key, required this.image, required this.order});
   final String? image;
   final int order;
 
