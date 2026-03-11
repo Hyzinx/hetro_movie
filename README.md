@@ -2,7 +2,7 @@
 
 # 🎬 Hetro Movie
 
-[![Watch Demo](https://img.youtube.com/vi/HSqza9f40w0/maxresdefault.jpg)](https://www.youtube.com/watch?v=HSqza9f40w0)
+https://github.com/Hyzinx/hetro_movie/blob/master/hetor_movie_demo.mp4
 
 ### A Modern Movie Discovery App Built with Flutter
 
