@@ -6,31 +6,35 @@ import 'package:retrofit/retrofit.dart';
 
 part 'movie_api.g.dart';
 
-@RestApi(baseUrl: baseUrlMovies)
+@RestApi(baseUrl: baseUrl)
 abstract class MovieApi {
   factory MovieApi(Dio dio, {String? baseUrl}) = _MovieApi;
 
-  @GET('now_playing')
+  @GET('movie/now_playing')
   Future<ResponseResult> getMoviesPlayNow(
     @Header("Authorization") String authKey,
   );
-  @GET('upcoming')
+  @GET('movie/upcoming')
   Future<ResponseResult> getMoviesUpcoming(
     @Header("Authorization") String authKey,
   );
-  @GET('top_rated')
+  @GET('movie/top_rated')
   Future<ResponseResult> getMoviesTopRated(
     @Header("Authorization") String authKey,
   );
-  @GET('popular')
+  @GET('movie/popular')
   Future<ResponseResult> getMoviesPopular(
     @Header("Authorization") String authKey,
   );
 
-  @GET('{id}')
+  @GET('movie/{id}')
   Future<Movie> getMovieById(
     @Path() int id,
     @Header("Authorization") String authKey,
   );
-
+  @GET('search/movie')
+  Future<ResponseResult> getMovieSearched(
+    @Query('query') String movieQury,
+    @Header("Authorization") String authKey,
+  );
 }

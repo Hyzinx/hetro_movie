@@ -38,8 +38,8 @@ void initializeDependency() {
 Dio createAndSetupDio() {
   Dio dio = Dio();
   dio
-    ..options.connectTimeout = Duration(seconds: 20)
-    ..options.receiveTimeout = Duration(seconds: 20);
+    ..options.connectTimeout = Duration(seconds: 50)
+    ..options.receiveTimeout = Duration(seconds: 50);
   dio.interceptors.add(
     LogInterceptor(
       responseBody: true,

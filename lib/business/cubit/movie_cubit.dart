@@ -23,60 +23,42 @@ class MovieCubit extends Cubit<MovieState> {
   final CreditRepository creditRepository;
   final MovieRepository movieRepository;
 
-  void getAllMoviesTopRated() async {
-    final data = await movieRepository.getAllMoviesTopRated();
+  void getAllMovies() async {
+    final dataTopRated = await movieRepository.getAllMoviesTopRated();
+    final dataUpcoming = await movieRepository.getAllMoviesUpcoming();
+    final dataPlayNow = await movieRepository.getAllMoviesPlayNow();
+    final dataPopular = await movieRepository.getAllMoviesPopular();
 
-    data.when(
+    dataTopRated.when(
       success: (List<Movie> moviesTopRated) {
-        emit(
-          ((state as LoadingMoviesList).copyWith(
-            topRatedMovies: moviesTopRated,
-          )),
-        );
-      },
-      failure: (NetworkExceptions networkExceptions) {
-        emit(ErrorLoadingData(networkExceptions));
-      },
-    );
-  }
-
-  void getAllMoviesPlayNow() async {
-    final data = await movieRepository.getAllMoviesPlayNow();
-
-    data.when(
-      success: (List<Movie> moviesPlayNow) {
-        emit(
-          (state as LoadingMoviesList).copyWith(moviesPlayNow: moviesPlayNow),
-        );
-      },
-      failure: (NetworkExceptions networkExceptions) {
-        emit(ErrorLoadingData(networkExceptions));
-      },
-    );
-  }
-
-  void getAllMoviesUpcoming() async {
-    final data = await movieRepository.getAllMoviesUpcoming();
-
-    data.when(
-      success: (List<Movie> moviesUpcoming) {
-        emit(
-          (state as LoadingMoviesList).copyWith(moviesUpcoming: moviesUpcoming),
-        );
-      },
-      failure: (NetworkExceptions networkExceptions) {
-        emit(ErrorLoadingData(networkExceptions));
-      },
-    );
-  }
-
-  void getAllMoviesPopular() async {
-    final data = await movieRepository.getAllMoviesPopular();
-
-    data.when(
-      success: (List<Movie> moviesPopular) {
-        emit(
-          (state as LoadingMoviesList).copyWith(moviesPopular: moviesPopular),
+        dataPlayNow.when(
+          success: (List<Movie> moviesPlayNow) {
+            dataUpcoming.when(
+              success: (List<Movie> moviesUpcoming) {
+                dataPopular.when(
+                  success: (List<Movie> moviesPopular) {
+                    emit(
+                      LoadingMoviesList(
+                        moviesPlayNow: moviesPlayNow,
+                        moviesPopular: moviesPopular,
+                        moviesUpcoming: moviesUpcoming,
+                        topRatedMovies: moviesTopRated,
+                      ),
+                    );
+                  },
+                  failure: (NetworkExceptions networkExceptions) {
+                    emit(ErrorLoadingData(networkExceptions));
+                  },
+                );
+              },
+              failure: (NetworkExceptions networkExceptions) {
+                emit(ErrorLoadingData(networkExceptions));
+              },
+            );
+          },
+          failure: (NetworkExceptions networkExceptions) {
+            emit(ErrorLoadingData(networkExceptions));
+          },
         );
       },
       failure: (NetworkExceptions networkExceptions) {
@@ -116,6 +98,18 @@ class MovieCubit extends Cubit<MovieState> {
       },
       failure: (error) {
         emit(ErrorLoadingData(error));
+      },
+    );
+  }
+
+  void searchForMovie(String quryMovie) async {
+    final data = await movieRepository.getMovieSearched(quryMovie);
+    data.when(
+      success: (List<Movie> movies) {
+        emit(SearchMovieList(movies: movies));
+      },
+      failure: (NetworkExceptions networkExceptions) {
+        emit(ErrorLoadingData(networkExceptions));
       },
     );
   }

@@ -13,9 +13,7 @@ class MovieRepository {
       final ResponseResult response = await movieApi.getMoviesPlayNow(
         "Bearer $apiKey",
       );
-      final List<Movie> listMovies = response.results!
-          .map((movie) => Movie.fromJson(movie))
-          .toList();
+      final List<Movie> listMovies = response.results!;
       return ApiResult.success(listMovies);
     } catch (error) {
       return ApiResult.failure(NetworkExceptions.getDioException(error));
@@ -27,9 +25,7 @@ class MovieRepository {
       final ResponseResult response = await movieApi.getMoviesUpcoming(
         "Bearer $apiKey",
       );
-      final List<Movie> listMovies = response.results!
-          .map((movie) => Movie.fromJson(movie))
-          .toList();
+      final List<Movie> listMovies = response.results!;
       return ApiResult.success(listMovies);
     } catch (error) {
       return ApiResult.failure(NetworkExceptions.getDioException(error));
@@ -41,9 +37,7 @@ class MovieRepository {
       final ResponseResult response = await movieApi.getMoviesTopRated(
         "Bearer $apiKey",
       );
-      final List<Movie> listMovies = response.results!
-          .map((movie) => Movie.fromJson(movie))
-          .toList();
+      final List<Movie> listMovies = response.results!;
       return ApiResult.success(listMovies);
     } catch (error) {
       return ApiResult.failure(NetworkExceptions.getDioException(error));
@@ -55,9 +49,7 @@ class MovieRepository {
       final ResponseResult response = await movieApi.getMoviesPopular(
         "Bearer $apiKey",
       );
-      final List<Movie> listMovies = response.results!
-          .map((movie) => Movie.fromJson(movie))
-          .toList();
+      final List<Movie> listMovies = response.results!;
       return ApiResult.success(listMovies);
     } catch (error) {
       return ApiResult.failure(NetworkExceptions.getDioException(error));
@@ -71,6 +63,19 @@ class MovieRepository {
         "Bearer $apiKey",
       );
       return ApiResult.success(response);
+    } catch (error) {
+      return ApiResult.failure(NetworkExceptions.getDioException(error));
+    }
+  }
+
+  Future<ApiResult<List<Movie>>> getMovieSearched(String movieQury) async {
+    try {
+      final ResponseResult response = await movieApi.getMovieSearched(
+        movieQury,
+        "Bearer $apiKey",
+      );
+      final List<Movie> listMovies = response.results!;
+      return ApiResult.success(listMovies);
     } catch (error) {
       return ApiResult.failure(NetworkExceptions.getDioException(error));
     }

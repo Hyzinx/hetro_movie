@@ -61,6 +61,15 @@ final class LoadingMovieDetails extends MovieState {
   }
 }
 
+final class SearchMovieList extends MovieState {
+  final List<Movie> movies;
+  SearchMovieList({required this.movies});
+
+  SearchMovieList copyWith({List<Movie>? movies}) {
+    return SearchMovieList(movies: movies ?? this.movies);
+  }
+}
+
 final class ErrorLoadingData extends MovieState {
   final NetworkExceptions networkExceptions;
   ErrorLoadingData(this.networkExceptions);

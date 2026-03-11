@@ -1,3 +1,4 @@
+import 'package:hetro_anime/data/models/movie.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'response_result.g.dart';
@@ -6,7 +7,7 @@ part 'response_result.g.dart';
 class ResponseResult {
   Map<String, dynamic>? dates;
   int? page;
-  List<Map<String, dynamic>>? results;
+  List<Movie>? results;
   int? totalPages;
   int? totalResults;
 

@@ -11,7 +11,7 @@ ResponseResult _$ResponseResultFromJson(Map<String, dynamic> json) =>
       dates: json['dates'] as Map<String, dynamic>?,
       page: (json['page'] as num?)?.toInt(),
       results: (json['results'] as List<dynamic>?)
-          ?.map((e) => e as Map<String, dynamic>)
+          ?.map((e) => Movie.fromJson(e as Map<String, dynamic>))
           .toList(),
       totalPages: (json['totalPages'] as num?)?.toInt(),
       totalResults: (json['totalResults'] as num?)?.toInt(),

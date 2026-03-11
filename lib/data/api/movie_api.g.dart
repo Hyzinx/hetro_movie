@@ -12,7 +12,7 @@ part of 'movie_api.dart';
 
 class _MovieApi implements MovieApi {
   _MovieApi(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'https://api.themoviedb.org/3/movie/';
+    baseUrl ??= 'https://api.themoviedb.org/3/';
   }
 
   final Dio _dio;
@@ -32,7 +32,7 @@ class _MovieApi implements MovieApi {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'now_playing',
+            'movie/now_playing',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -60,7 +60,7 @@ class _MovieApi implements MovieApi {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'upcoming',
+            'movie/upcoming',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -88,7 +88,7 @@ class _MovieApi implements MovieApi {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'top_rated',
+            'movie/top_rated',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -116,7 +116,7 @@ class _MovieApi implements MovieApi {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'popular',
+            'movie/popular',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -144,7 +144,7 @@ class _MovieApi implements MovieApi {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '${id}',
+            'movie/${id}',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -154,6 +154,37 @@ class _MovieApi implements MovieApi {
     late Movie _value;
     try {
       _value = Movie.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options, response: _result);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<ResponseResult> getMovieSearched(
+    String movieQury,
+    String authKey,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'query': movieQury};
+    final _headers = <String, dynamic>{r'Authorization': authKey};
+    _headers.removeWhere((k, v) => v == null);
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<ResponseResult>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            'search/movie',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ResponseResult _value;
+    try {
+      _value = ResponseResult.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;

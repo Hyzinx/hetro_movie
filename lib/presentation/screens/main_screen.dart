@@ -56,10 +56,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<MovieCubit>().getAllMoviesTopRated();
-    context.read<MovieCubit>().getAllMoviesUpcoming();
-    context.read<MovieCubit>().getAllMoviesPlayNow();
-    context.read<MovieCubit>().getAllMoviesPopular();
+    context.read<MovieCubit>().getAllMovies();
   }
 
   @override
